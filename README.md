@@ -12,6 +12,6 @@ You can convert both ways:
 - dollars to euros, pln, yen etc.
 
 ## TODO
-[] refactor pages
-[] get currency api
-[] add other currency
+- refactor pages
+- get currency api
+- add other currency
