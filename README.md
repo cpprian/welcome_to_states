@@ -9,5 +9,6 @@ You can convert both ways:
 - gallons to liters
 - inches to centimeters
 - feet to meters
+- dollars to euros, pln, yen etc.
 
 
