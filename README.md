@@ -11,4 +11,8 @@ You can convert both ways:
 - feet to meters
 - dollars to euros, pln, yen etc.
 
+## TODO
+[] refactor pages
+[] get currency api
+[] add other currency
 
