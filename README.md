@@ -15,4 +15,3 @@ You can convert both ways:
 [] refactor pages
 [] get currency api
 [] add other currency
-
