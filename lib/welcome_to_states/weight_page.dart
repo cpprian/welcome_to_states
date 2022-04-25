@@ -33,7 +33,7 @@ class _WeightPageState extends State<WeightPage> {
             title: const Text('Weight converter'),
           ),
           drawer: const DrawerTemplate(),
-          body: PoundsPage(),
+          body: const PoundsPage(),
           ),
         ),
     );
@@ -48,6 +48,27 @@ class PoundsPage extends StatefulWidget {
 }
 
 class _PoundsPageState extends State<PoundsPage> {
+  final TextEditingController poundsController = TextEditingController();
+  final TextEditingController kilogramsControleer = TextEditingController();
+
+  List<TextFieldTemplate> textFields = []; 
+  
+  @override
+  void initState() {
+   textFields = [
+      TextFieldTemplate(
+        title: 'Pounds',
+        controller: poundsController,
+        factor: 0.45359237,
+      ),
+      TextFieldTemplate(
+        title: 'Kilograms',
+        controller: kilogramsControleer,
+        factor: 2.204623,
+      ),
+    ];
+  } 
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -68,9 +89,38 @@ class _PoundsPageState extends State<PoundsPage> {
             alignment: Alignment.center,
             child: Column(
               mainAxisSize: MainAxisSize.min,
-              children: const <Widget>[
-                TextFieldTemplate(title: 'Pounds'),
-                TextFieldTemplate(title: 'Kilograms'),
+              children: <Widget>[
+                textFields[0],
+                textFields[1],
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    MaterialButton(
+                      child: const Text('convert', style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      )),
+                      onPressed: () {
+                        setState(() {
+                          textFields[1].controller.text = (double.parse(textFields[0].controller.text) * textFields[0].factor).toStringAsFixed(2);
+                        });
+                      },
+                    ),
+                    MaterialButton(
+                      child: const Text('swap units', style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      )),
+                      onPressed: () {
+                        setState(() {
+                          TextFieldTemplate temp = textFields[0];
+                          textFields[0] = textFields[1];
+                          textFields[1] = temp;
+                        });
+                      },
+                    ),
+                  ],
+                ),
               ],
             ),
           ),

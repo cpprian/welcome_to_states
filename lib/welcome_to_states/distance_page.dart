@@ -67,9 +67,26 @@ class MilesPage extends StatefulWidget {
 }
 
 class _MilesPageState extends State<MilesPage> {
-  TextEditingController myController = TextEditingController();
+  final TextEditingController milesController = TextEditingController();
+  final TextEditingController kilometersController = TextEditingController();
 
-  List<String> messages = [];
+  List<TextFieldTemplate> textFields = []; 
+  
+  @override
+  void initState() {
+   textFields = [
+      TextFieldTemplate(
+        title: 'Miles',
+        controller: milesController,
+        factor: 1.609344,
+      ),
+      TextFieldTemplate(
+        title: 'Kilometers',
+        controller: kilometersController,
+        factor: 0.6213712,
+      ),
+    ];
+  } 
 
   @override
   Widget build(BuildContext context) {
@@ -91,9 +108,38 @@ class _MilesPageState extends State<MilesPage> {
             alignment: Alignment.center,
             child: Column(
               mainAxisSize: MainAxisSize.min,
-              children: const <Widget>[
-                TextFieldTemplate(title: 'Feets'),
-                TextFieldTemplate(title: 'Meters'),
+              children: <Widget>[
+                textFields[0],
+                textFields[1],
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    MaterialButton(
+                      child: const Text('convert', style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      )),
+                      onPressed: () {
+                        setState(() {
+                          textFields[1].controller.text = (double.parse(textFields[0].controller.text) * textFields[0].factor).toStringAsFixed(2);
+                        });
+                      },
+                    ),
+                    MaterialButton(
+                      child: const Text('swap units', style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      )),
+                      onPressed: () {
+                        setState(() {
+                          TextFieldTemplate temp = textFields[0];
+                          textFields[0] = textFields[1];
+                          textFields[1] = temp;
+                        });
+                      },
+                    ),
+                  ],
+                ),
               ],
             ),
           ),
@@ -111,8 +157,27 @@ class FeetsPage extends StatefulWidget {
 }
 
 class _FeetsPageState extends State<FeetsPage> {
-  TextEditingController myController = TextEditingController();
+  final TextEditingController feetsController = TextEditingController();
+  final TextEditingController metersController = TextEditingController();
+
+  List<TextFieldTemplate> textFields = []; 
   
+  @override
+  void initState() {
+   textFields = [
+      TextFieldTemplate(
+        title: 'Feets',
+        controller: feetsController,
+        factor: 0.3048,
+      ),
+      TextFieldTemplate(
+        title: 'Meters',
+        controller: metersController,
+        factor: 3.28084,
+      ),
+    ];
+  } 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -133,9 +198,38 @@ class _FeetsPageState extends State<FeetsPage> {
             alignment: Alignment.center,
             child: Column(
               mainAxisSize: MainAxisSize.min,
-              children: const <Widget>[
-                TextFieldTemplate(title: 'Feets'),
-                TextFieldTemplate(title: 'Meters'),
+              children: <Widget>[
+                textFields[0],
+                textFields[1],
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    MaterialButton(
+                      child: const Text('convert', style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      )),
+                      onPressed: () {
+                        setState(() {
+                          textFields[1].controller.text = (double.parse(textFields[0].controller.text) * textFields[0].factor).toStringAsFixed(2);
+                        });
+                      },
+                    ),
+                    MaterialButton(
+                      child: const Text('swap units', style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      )),
+                      onPressed: () {
+                        setState(() {
+                          TextFieldTemplate temp = textFields[0];
+                          textFields[0] = textFields[1];
+                          textFields[1] = temp;
+                        });
+                      },
+                    ),
+                  ],
+                ),
               ],
             ),
           ),
@@ -153,6 +247,27 @@ class InchesPage extends StatefulWidget {
 }
 
 class _InchesPageState extends State<InchesPage> {
+  final TextEditingController inchesController = TextEditingController();
+  final TextEditingController centimetersController = TextEditingController();
+
+  List<TextFieldTemplate> textFields = []; 
+  
+  @override
+  void initState() {
+   textFields = [
+      TextFieldTemplate(
+        title: 'Inches',
+        controller: inchesController,
+        factor: 2.54000002489,
+      ),
+      TextFieldTemplate(
+        title: 'Centimeters',
+        controller: centimetersController,
+        factor: 0.39370079125945,
+      ),
+    ];
+  } 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -173,9 +288,38 @@ class _InchesPageState extends State<InchesPage> {
             alignment: Alignment.center,
             child: Column(
               mainAxisSize: MainAxisSize.min,
-              children: const <Widget>[
-                TextFieldTemplate(title: 'Feets'),
-                TextFieldTemplate(title: 'Meters'),
+              children: <Widget>[
+                textFields[0],
+                textFields[1],
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    MaterialButton(
+                      child: const Text('convert', style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      )),
+                      onPressed: () {
+                        setState(() {
+                          textFields[1].controller.text = (double.parse(textFields[0].controller.text) * textFields[0].factor).toStringAsFixed(2);
+                        });
+                      },
+                    ),
+                    MaterialButton(
+                      child: const Text('swap units', style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      )),
+                      onPressed: () {
+                        setState(() {
+                          TextFieldTemplate temp = textFields[0];
+                          textFields[0] = textFields[1];
+                          textFields[1] = temp;
+                        });
+                      },
+                    ),
+                  ],
+                ),
               ],
             ),
           ),

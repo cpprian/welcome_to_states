@@ -49,6 +49,27 @@ class DollarsPage extends StatefulWidget {
 }
 
 class _DollarsPageState extends State<DollarsPage> {
+  final TextEditingController dollarsController = TextEditingController();
+  final TextEditingController eurosController = TextEditingController();
+
+  List<TextFieldTemplate> textFields = []; 
+  
+  @override
+  void initState() {
+   textFields = [
+      TextFieldTemplate(
+        title: 'Dollars',
+        controller: dollarsController,
+        factor: 0.93,
+      ),
+      TextFieldTemplate(
+        title: 'Euros',
+        controller: eurosController,
+        factor: 1.07,
+      ),
+    ];
+  } 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -69,9 +90,38 @@ class _DollarsPageState extends State<DollarsPage> {
             alignment: Alignment.center,
             child: Column(
               mainAxisSize: MainAxisSize.min,
-              children: const <Widget>[
-                TextFieldTemplate(title: 'Dollars'),
-                TextFieldTemplate(title: 'Euros'),
+              children: <Widget>[
+                textFields[0],
+                textFields[1],
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    MaterialButton(
+                      child: const Text('convert', style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      )),
+                      onPressed: () {
+                        setState(() {
+                          textFields[1].controller.text = (double.parse(textFields[0].controller.text) * textFields[0].factor).toStringAsFixed(2);
+                        });
+                      },
+                    ),
+                    MaterialButton(
+                      child: const Text('swap units', style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      )),
+                      onPressed: () {
+                        setState(() {
+                          TextFieldTemplate temp = textFields[0];
+                          textFields[0] = textFields[1];
+                          textFields[1] = temp;
+                        });
+                      },
+                    ),
+                  ],
+                ),
               ],
             ),
           ),

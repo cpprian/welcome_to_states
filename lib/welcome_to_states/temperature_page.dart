@@ -48,6 +48,27 @@ class FahrenheitPage extends StatefulWidget {
 }
 
 class _FahrenheitPageState extends State<FahrenheitPage> {
+  final TextEditingController fahrenheitController = TextEditingController();
+  final TextEditingController celsiusController = TextEditingController();
+
+  List<TextFieldTemplate> textFields = []; 
+  
+  @override
+  void initState() {
+   textFields = [
+      TextFieldTemplate(
+        title: 'Fahrenheit',
+        controller: fahrenheitController,
+        factor: 1.8,
+      ),
+      TextFieldTemplate(
+        title: 'Celcius',
+        controller: celsiusController,
+        factor: 1.8,
+      ),
+    ];
+  } 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -68,9 +89,44 @@ class _FahrenheitPageState extends State<FahrenheitPage> {
             alignment: Alignment.center,
             child: Column(
               mainAxisSize: MainAxisSize.min,
-              children: const <Widget>[
-                TextFieldTemplate(title: 'Fahrenheit'),
-                TextFieldTemplate(title: 'Celcius'),
+              children: <Widget>[
+                textFields[0],
+                textFields[1],
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    MaterialButton(
+                      child: const Text('convert', style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      )),
+                      onPressed: () {
+                        setState(() {
+                          if (textFields[0].title == 'Fahrenheit') {
+                            textFields[1].controller.text = 
+                              ((double.parse(textFields[0].controller.text) - 32) / textFields[0].factor).toStringAsFixed(2);
+                          } else {
+                            textFields[1].controller.text = 
+                              (double.parse(textFields[1].controller.text) * textFields[0].factor + 32).toStringAsFixed(2);
+                          }
+                        });
+                      },
+                    ),
+                    MaterialButton(
+                      child: const Text('swap units', style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      )),
+                      onPressed: () {
+                        setState(() {
+                          TextFieldTemplate temp = textFields[0];
+                          textFields[0] = textFields[1];
+                          textFields[1] = temp;
+                        });
+                      },
+                    ),
+                  ],
+                ),
               ],
             ),
           ),

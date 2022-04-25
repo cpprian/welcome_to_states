@@ -2,10 +2,14 @@ import 'package:flutter/material.dart';
 
 class TextFieldTemplate extends StatelessWidget {
   final String title;
+  final TextEditingController controller; 
+  final double factor;
 
   const TextFieldTemplate({
     Key? key,
     required this.title,
+    required this.controller,
+    required this.factor,
   }) : super(key: key);
 
   @override
@@ -15,6 +19,7 @@ class TextFieldTemplate extends StatelessWidget {
         width: 500,
         margin: const EdgeInsets.all(20),
         child: TextField(
+          controller: controller,
           textAlignVertical: TextAlignVertical.center,
           obscureText: false,
           style: const TextStyle(
